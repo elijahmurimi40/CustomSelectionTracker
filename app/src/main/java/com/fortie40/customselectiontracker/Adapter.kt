@@ -5,8 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.fortie40.customselectiontracker.models.ProgrammingLanguage
 
-class Adapter(names: List<ProgrammingLanguage>): RecyclerView.Adapter<ViewHolder>(){
-    private var originalList = names
+class Adapter(
+    private val names: List<ProgrammingLanguage>,
+    private val clickListener: (ProgrammingLanguage) -> Unit,
+    private val longClickListener: (ProgrammingLanguage) -> Boolean
+): RecyclerView.Adapter<ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -15,11 +18,11 @@ class Adapter(names: List<ProgrammingLanguage>): RecyclerView.Adapter<ViewHolder
     }
 
     override fun getItemCount(): Int {
-        return originalList.size
+        return names.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val programmingLanguage = originalList[position]
-        holder.bind(programmingLanguage.initial, programmingLanguage.name)
+        val programmingLanguage = names[position]
+        holder.bind(programmingLanguage, clickListener, longClickListener)
     }
 }
