@@ -2,6 +2,7 @@ package com.fortie40.customselectiontracker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.fortie40.customselectiontracker.models.ProgrammingLanguage
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +24,15 @@ class MainActivity : AppCompatActivity() {
             "Hollywood", "SMALL", "Lisp", "PureScript", "R++", "XQuery", "YAML", "ZOPL"
         )
 
-        adapter = Adapter(names)
+        val programmingLanguages = arrayListOf<ProgrammingLanguage>()
+        for (i in 1..names.size) {
+            val name = names[i - 1]
+            val initial = name[0].toString()
+            val programmingLanguage = ProgrammingLanguage(initial, name)
+            programmingLanguages.add(programmingLanguage)
+        }
+
+        adapter = Adapter(programmingLanguages)
         names_item.adapter = adapter
     }
 }
