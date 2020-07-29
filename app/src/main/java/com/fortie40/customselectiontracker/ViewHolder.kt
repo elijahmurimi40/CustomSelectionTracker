@@ -21,6 +21,7 @@ class ViewHolder(nItemView: View): RecyclerView.ViewHolder(nItemView) {
         clickListener: (ProgrammingLanguage) -> Unit,
         longClickListener: (ProgrammingLanguage, Int) -> Boolean
     ) {
+        icon.setOnClickListener { longClickListener(data, adapterPosition) }
         nameCard.setOnClickListener { clickListener(data) }
         nameCard.setOnLongClickListener { longClickListener(data, adapterPosition) }
 

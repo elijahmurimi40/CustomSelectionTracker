@@ -13,12 +13,32 @@ import kotlinx.android.synthetic.main.name_layout.*
 class MainActivity : AppCompatActivity() {
     private lateinit var adapter: Adapter
     private var actionMode: ActionMode? = null
+    private var isInActionMode = false
+    private var count: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         getNames()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        adapter.onSaveInstanceState(outState)
+        outState.putBoolean(IS_IN_ACTION_MODE, isInActionMode)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        if (savedInstanceState.getBoolean(IS_IN_ACTION_MODE)) {
+            actionMode = startActionMode(ActionModeCallBack())
+            adapter.onRestoreInstanceState(savedInstanceState)
+
+            count = adapter.getSelectedItemCount()
+            actionMode!!.title = count.toString()
+            actionMode!!.invalidate()
+        }
     }
 
     private val onClick = { data: ProgrammingLanguage ->
@@ -37,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun toggleSelection(position: Int) {
         adapter.toggleSelection(position)
-        val count = adapter.getSelectedItemCount()
+        count = adapter.getSelectedItemCount()
 
         if (count == 0) {
             actionMode?.finish()
@@ -80,6 +100,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            isInActionMode = true
             mode?.menuInflater?.inflate(R.menu.menu_main, menu)
             return true
         }
@@ -89,6 +110,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onDestroyActionMode(mode: ActionMode?) {
+            isInActionMode = false
             adapter.clearSelection()
             actionMode = null
         }
