@@ -3,6 +3,7 @@
 	alt="Logo" width="40px" height="40px" /></p>
   
 # CustomSelectionTracker
+Minimum Android Version 4.0 (Ice Cream Sandwich)
 
 ### Demos
 <img 
