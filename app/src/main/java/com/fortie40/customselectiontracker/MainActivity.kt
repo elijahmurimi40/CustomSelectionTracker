@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.fortie40.customselectiontracker.helperclasses.HelperFunctions.showShortSnackBar
 import com.fortie40.customselectiontracker.models.ProgrammingLanguage
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.name_layout.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var adapter: Adapter
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val onClick = { data: ProgrammingLanguage ->
-        showShortSnackBar(name_card, data.name)
+        showShortSnackBar(names_item, data.name)
     }
 
     @Suppress("UNUSED_PARAMETER")
@@ -92,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
             return when (item?.itemId) {
                 R.id.action_delete -> {
-                    showShortSnackBar(name_card, getString(R.string.delete_action))
+                    showShortSnackBar(names_item, getString(R.string.delete_action))
                     true
                 }
                 else -> false
