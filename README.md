@@ -4,6 +4,11 @@
   
 # CustomSelectionTracker
 
+### Demos
+<img 
+	src="demo/demo1.gif" 
+	alt="Demo" height="500px" hspace="20" />
+
 ## License
 
 MIT License
